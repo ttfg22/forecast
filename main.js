@@ -56,7 +56,7 @@ async function showForecast(url, latlng) {
         let icon = timeseries[i].data.next_1_hours.summary.symbol_code
         let image = `icons/${icon}.svg`;
         markup += `<img src="${image}" style="width:32px;" title="${timeseries[i].time.toLocaleString()}">`
-        console.log(icon)
+        //console.log(icon)
     }
     L.popup().setLatLng(latlng).setContent(markup).openOn(map)
 
@@ -71,3 +71,8 @@ map.on("click", function (evt) {
     let url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${evt.latlng.lat}&lon=${evt.latlng.lng}`
     showForecast(url, evt.latlng)
 });
+
+// 'klick' auf IBK simulieren 
+map.fireEvent("click",{
+    latlng: L.latLng(ibk.lat,ibk.lng)
+})
