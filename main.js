@@ -34,12 +34,20 @@ L.control.scale({
 async function showForecast(url, latlng) {
     let response = await fetch(url);
     let jsondata = await response.json();
-    console.log(jsondata, latlng);
+    //console.log(jsondata, latlng);
 
     let current = jsondata.properties.timeseries[0].data.instant.details;
-    console.log(current)
+    //console.log(current)
     let markup = `
-    <h4> Aktuelles Wetter für ${latlng.lat.toFixed(4)},${latlng.lng.toFixed(4)}`
+    <h4> Aktuelles Wetter für ${latlng.lat.toFixed(4)},${latlng.lng.toFixed(4)} </h4>
+    <table>
+    <tr><td>Luftdruck auf Meeresniveau (hPa)<td/><td>${current.air_pressure_at_sea_level}<td/></tr>
+    <tr><td>Lufttemperatur (°Celsius)<td/><td>${current.air_temperature}<td/></tr>
+    <tr><td>Wolkenbedeckung (%)<td/><td>${current.cloud_area_fraction}<td/></tr>
+    <tr><td>relative Luftfeuchtigkeit (%)<td/><td>${current.relative_humidity}<td/></tr>
+    <tr><td>Windrichtung (°)<td/><td>${current.wind_from_direction}<td/></tr>
+    <tr><td>Windgeschwindigkeit (m/s)<td/><td>${current.wind_speed}<td/></tr>
+    <table/>`
     L.popup().setLatLng(latlng).setContent(markup).openOn(map)
 }
 
