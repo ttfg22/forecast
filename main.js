@@ -35,6 +35,12 @@ async function showForecast(url, latlng) {
     let response = await fetch(url);
     let jsondata = await response.json();
     console.log(jsondata, latlng);
+
+    let current = jsondata.properties.timeseries[0].data.instant.details;
+    console.log(current)
+    let markup = `
+    <h4> Aktuelles Wetter für ${latlng.lat.toFixed(4)},${latlng.lng.toFixed(4)}`
+    L.popup().setLatLng(latlng).setContent(markup).openOn(map)
 }
 
 // auf Kartenklick reagieren 
